@@ -15,6 +15,7 @@ jsdoc -t ./node_modules/maptalks-jsdoc/
 ```
 
 ##Screenshot
+![screenshot](https://raw.githubusercontent.com/FuZhenn/maptalks-jsdoc/master/maptalks-jsdoc.png "screenshot")
 
 
 ##License
