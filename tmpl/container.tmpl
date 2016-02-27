@@ -45,7 +45,13 @@
         <h3>Methods</h3>
         <ul>
         <?js methods.forEach(function(m) { ?>
-            <li><a href="#<?js= m.id ?>"><?js= m.name ?></a></li>
+            <?js //if (m.name ==='config') {console.log(m);} ?>
+            <?js if (m.inherited) {?>
+                <li><a class="inherit" href="#<?js= m.id ?>">
+            <?js } else { ?>
+                <li><a href="#<?js= m.id ?>">
+            <?js }; ?>
+                <?js= m.name + ' ' + (m.scope === 'static'?'(s)':'') + (m.inherited?'(i)':'') ?></a></li>
         <?js }); ?>
         </ul>
     <?js } ?>

@@ -11,7 +11,7 @@ var self = this;
     <h2>Constructor</h2>
     <?js } ?>
 
-    <h4 class="name" id="<?js= id ?>"><?js= data.attribs + (kind === 'class' ? 'new ' : '') +
+    <h4 class="name" id="<?js= id ?>"><?js= data.attribs + (data.inherited?'<span class="type-signature">(inherited) </span>':'') + (kind === 'class' ? 'new ' : '') +
     methodName + (data.signature || '') ?></h4>
 
     <?js if (data.summary) { ?>
@@ -107,3 +107,4 @@ var self = this;
     <h5>Example<?js= examples.length > 1? 's':'' ?></h5>
     <?js= this.partial('examples.tmpl', examples) ?>
 <?js } ?>
+<hr>

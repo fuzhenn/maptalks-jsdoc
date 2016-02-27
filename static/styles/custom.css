@@ -12,6 +12,10 @@
     color : #3887BE;
 }
 
+.classnav ul li a.inherit {
+    color : #4D4E53;
+}
+
 .scroll-styled::-webkit-scrollbar {
   width:8px;
   height:8px;
@@ -31,3 +35,7 @@
   background:rgba(0,0,0,0.1);
   border-radius:0;
   }
+
+hr {
+  margin-bottom: 20px;
+}
