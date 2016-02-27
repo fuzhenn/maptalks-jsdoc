@@ -1,5 +1,5 @@
 # maptalks-jsdoc
-A template of [JSDoc 3](https://github.com/jsdoc3/jsdoc) for maptalks.js, based on the default temaplate but more.
+A template of [JSDoc 3](https://github.com/jsdoc3/jsdoc) for maptalks.js, based on the default template but more.
 
 ## Features:
 * Add class navigation on the left.
