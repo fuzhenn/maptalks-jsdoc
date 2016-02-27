@@ -7,12 +7,12 @@ A template of [JSDoc 3](https://github.com/jsdoc3/jsdoc) for maptalks.js, based 
 * And more is still going on.
 
 ##Usage
-``javascript
+```bash
 
 npm install maptalks-jsdoc3
-jsdoc -t ./node_module/maptalks-jsdocs/
+jsdoc -t ./node_modules/maptalks-jsdoc/
 
-``
+```
 
 ##Screenshot
 
