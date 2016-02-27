@@ -9,7 +9,7 @@ A template of [JSDoc 3](https://github.com/jsdoc3/jsdoc) for maptalks.js, based 
 ##Usage
 ```bash
 
-npm install maptalks-jsdoc3
+npm install maptalks-jsdoc
 jsdoc -t ./node_modules/maptalks-jsdoc/
 
 ```
