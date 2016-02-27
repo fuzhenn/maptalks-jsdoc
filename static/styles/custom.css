@@ -1,0 +1,33 @@
+.classnav {
+    position:fixed;
+    width:15%;
+    float:left;
+    border: 0px;
+    margin-top : 0px;
+    overflow:auto;
+    height:80%;
+}
+
+.classnav ul li a {
+    color : #3887BE;
+}
+
+.scroll-styled::-webkit-scrollbar {
+  width:8px;
+  height:8px;
+  border-left:0;
+  background:rgba(0,0,0,0.1);
+  }
+
+.scroll-styled::-webkit-scrollbar:hover {
+  background:rgba(0,0,0,0.15);
+  }
+
+.scroll-styled::-webkit-scrollbar-track {
+  background:none;
+  }
+
+.scroll-styled::-webkit-scrollbar-thumb {
+  background:rgba(0,0,0,0.1);
+  border-radius:0;
+  }
