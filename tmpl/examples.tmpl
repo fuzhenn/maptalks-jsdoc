@@ -7,7 +7,11 @@
     ?>
         <p class="code-caption"><?js= example.caption ?></p>
     <?js } ?>
-    <pre class="prettyprint"><code><?js= self.htmlsafe(example.code) ?></code></pre>
+    <?js if (env.conf.markdown) { ?>
+        <?js= example.code ?>
+    <?js } else {?>
+        <pre class="prettyprint"><code><?js= self.htmlsafe(example.code) ?></code></pre>
+    <?js } ?>
 <?js
     });
 ?>
