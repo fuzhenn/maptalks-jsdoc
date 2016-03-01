@@ -28,7 +28,7 @@ var self = this;
 <?js if (data.fires && fires.length) { ?>
     <h5>Fires:</h5>
     <ul><?js fires.forEach(function(f) { ?>
-        <li><?js= self.linkto(f) ?></li>
+        <li><a href="#event:<?js= f.name ?>"><?js= f.name ?></a></li>
     <?js }); ?></ul>
 <?js } ?>
 
@@ -36,3 +36,4 @@ var self = this;
     <h5>Example<?js= examples.length > 1? 's':'' ?>:</h5>
     <?js= this.partial('examples.tmpl', examples) ?>
 <?js } ?>
+<hr>

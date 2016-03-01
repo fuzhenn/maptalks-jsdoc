@@ -214,7 +214,6 @@ function generate(title, docs, filename, resolveLinks) {
         title: title,
         docs: docs
     };
-
     var outpath = path.join(outdir, filename),
         html = view.render('container.tmpl', docData);
 
@@ -306,7 +305,8 @@ function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
                 } else {
                     displayName = item.name;
                 }
-                itemsNav += '<li>' + linktoFn(item.longname, displayName.replace(/\b(module|event):/g, '')) + '</li>';
+                itemsNav += '<li><a href="'+item.longname+'.html">'+displayName.replace(/\b(module|event):/g, '')+'</a></li>';
+                // itemsNav += '<li>' + linktoFn(item.longname, displayName.replace(/\b(module|event):/g, '')) + '</li>';
 
                 itemsSeen[item.longname] = true;
             }
@@ -607,7 +607,8 @@ exports.publish = function(taffyData, opts, tutorials) {
 
         var myClasses = helper.find(classes, {longname: longname});
         if (myClasses.length) {
-            generate('Class: ' + myClasses[0].name, myClasses, helper.longnameToUrl[longname]);
+
+            generate('Class: ' + myClasses[0].name, myClasses, longname+'.html');
         }
 
         var myNamespaces = helper.find(namespaces, {longname: longname});

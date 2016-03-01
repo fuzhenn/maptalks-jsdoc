@@ -3,6 +3,7 @@
     var isGlobalPage;
 
     docs.forEach(function(doc, i) {
+    //console.log(doc);
 ?>
 
 <?js
@@ -17,8 +18,10 @@
     <?js= self.partial('source.tmpl', doc) ?>
 <?js } else { ?>
 
-<?js if (doc.kind === 'class') { ?>
+<?js if (doc.kind === 'class' || doc.kind === 'mixin') { ?>
 <nav class="classnav scroll-styled">
+
+    <h5><a href="#main" style="color:#000"><?js= doc.kind + ' : '+ doc.longname ?></a></h5>
     <?js
         var members = self.find({kind: 'member', memberof: isGlobalPage ? {isUndefined: true} : doc.longname});
 
@@ -30,7 +33,7 @@
         }
         if (members && members.length && members.forEach) {
     ?>
-        <h3>Members</h3>
+        <h5>Members</h5>
         <ul>
         <?js members.forEach(function(p) { ?>
             <li><a href="#<?js= p.id ?>"><?js= p.name ?></a></li>
@@ -42,7 +45,7 @@
         var methods = self.find({kind: 'function', memberof: isGlobalPage ? {isUndefined: true} : doc.longname});
         if (methods && methods.length && methods.forEach) {
     ?>
-        <h3>Methods</h3>
+        <h5>Methods</h5>
         <ul>
         <?js methods.forEach(function(m) { ?>
             <?js //if (m.name ==='config') {console.log(m);} ?>
@@ -55,10 +58,26 @@
         <?js }); ?>
         </ul>
     <?js } ?>
+
+    <?js
+        var events = self.find({kind: 'event', memberof: isGlobalPage ? {isUndefined: true} : doc.longname});
+        if (events && events.length && events.forEach) {
+    ?>
+        <h5>Events</h5>
+        <ul>
+        <?js events.forEach(function(e) { ?>
+            <li><a href="#<?js= e.id ?>"><?js= e.name ?></a></li>
+        <?js }); ?>
+        </ul>
+    <?js } ?>
 </nav>
 <?js } ?>
-
+<?js if (doc.kind === 'class' || doc.kind === 'mixin') { ?>
+<section style="width:70%;float:right;">
+<?js } else { ?>
 <section>
+<?js } ?>
+
 
 <header>
     <?js if (!doc.longname || doc.kind !== 'module') { ?>
@@ -128,7 +147,7 @@
         <h3 class="subsection-title">Classes</h3>
 
         <dl><?js classes.forEach(function(c) { ?>
-            <dt><?js= self.linkto(c.longname, c.name) ?></dt>
+            <dt><a href="<?js= c.longname ?>.html"><?js= c.name ?></a></dt>
             <dd><?js if (c.summary) { ?><?js= c.summary ?><?js } ?></dd>
         <?js }); ?></dl>
     <?js } ?>
@@ -169,7 +188,6 @@
     <?js } ?>
 
     <?js
-        var methods = self.find({kind: 'function', memberof: isGlobalPage ? {isUndefined: true} : doc.longname});
         if (methods && methods.length && methods.forEach) {
     ?>
         <h3 class="subsection-title">Methods</h3>
@@ -200,7 +218,6 @@
     <?js } ?>
 
     <?js
-        var events = self.find({kind: 'event', memberof: isGlobalPage ? {isUndefined: true} : doc.longname});
         if (events && events.length && events.forEach) {
     ?>
         <h3 class="subsection-title">Events</h3>

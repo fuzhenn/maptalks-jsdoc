@@ -7,16 +7,18 @@ var self = this;
         var methodName = name;
         if (data.kind === 'class') {methodName = longname;}
 ?>
+
     <?js if (data.kind === 'class' && data.classdesc) { ?>
-    <h2>Constructor</h2>
+    <!-- <h2>Constructor</h2> -->
     <?js } ?>
 
     <h4 class="name" id="<?js= id ?>"><?js= data.attribs + (data.inherited?'<span class="type-signature">(inherited) </span>':'') + (kind === 'class' ? 'new ' : '') +
     methodName + (data.signature || '') ?></h4>
 
     <?js if (data.summary) { ?>
-    <p class="summary"><?js= summary ?></p>
+        <p class="summary"><?js= summary ?></p>
     <?js } ?>
+
 <?js } ?>
 
 <?js if (data.kind !== 'module' && data.description) { ?>
@@ -24,7 +26,10 @@ var self = this;
     <?js= data.description ?>
 </div>
 <?js } ?>
-
+<?js if (data.examples && examples.length) { ?>
+    <!--<h5>Example<?js= examples.length > 1? 's':'' ?>:</h5>-->
+    <?js= this.partial('examples.tmpl', examples) ?>
+<?js } ?>
 <?js if (data.augments && data.alias && data.alias.indexOf('module:') === 0) { ?>
     <h5>Extends:</h5>
     <?js= self.partial('augments.tmpl', data) ?>
@@ -61,7 +66,7 @@ var self = this;
 <?js if (data.fires && fires.length) { ?>
 <h5>Fires:</h5>
 <ul><?js fires.forEach(function(f) { ?>
-    <li><?js= self.linkto(f) ?></li>
+    <li><a href="#event:<?js= f.split(':')[1] ?>"><?js= f.split(':')[1] ?></a></li>
 <?js }); ?></ul>
 <?js } ?>
 
@@ -103,8 +108,5 @@ var self = this;
     <?js });
 } } ?>
 
-<?js if (data.examples && examples.length) { ?>
-    <h5>Example<?js= examples.length > 1? 's':'' ?>:</h5>
-    <?js= this.partial('examples.tmpl', examples) ?>
-<?js } ?>
+
 <hr>
