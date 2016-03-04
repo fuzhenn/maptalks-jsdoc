@@ -1,7 +1,7 @@
 <?js
     var self = this;
     var isGlobalPage;
-
+    self.hasClassNav = false;
     docs.forEach(function(doc, i) {
     //console.log(doc);
 ?>
@@ -18,7 +18,9 @@
     <?js= self.partial('source.tmpl', doc) ?>
 <?js } else { ?>
 
-<?js if (doc.kind === 'class' || doc.kind === 'mixin') { ?>
+<?js if (doc.kind === 'class' || doc.kind === 'mixin') {
+        self.hasClassNav = true;
+?>
 <nav class="classnav scroll-styled">
 
     <h5><a href="#main" style="color:#000"><?js= doc.kind + ' : '+ doc.longname ?></a></h5>

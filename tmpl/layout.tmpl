@@ -16,11 +16,17 @@
 </head>
 
 <body>
+<?js if(this.hasClassNav) { ?>
 <div style="position:fixed;"><h1 class="page-title"><?js= title ?></h1></div>
 <div id="main" style="margin-top:77px;">
     <?js= content ?>
 </div>
-
+<?js } else { ?>
+<div ><h1 class="page-title"><?js= title ?></h1></div>
+<div id="main">
+    <?js= content ?>
+</div>
+<?js } ?>
 <nav>
     <?js= this.nav ?>
 </nav>
