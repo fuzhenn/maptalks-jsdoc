@@ -34,7 +34,7 @@ html
 body
 {
     font-family: 'microsoft yahei','Open Sans', sans-serif;
-    line-height: 1.5;
+    /*line-height: 1.5;*/
     color: #4d4e53;
     background-color: #FFFEEE; /*white;*/
 }
@@ -121,7 +121,7 @@ nav ul {
 nav ul a, nav ul a:visited, nav ul a:active {
     font-family: 'microsoft yahei', Consolas, Monaco, 'Andale Mono', monospace;
     line-height: 18px;
-    color: #4D4E53;
+    /*color: #4D4E53;*/
 }
 
 nav h3 {

@@ -288,13 +288,76 @@ function attachModuleSymbols(doclets, modules) {
     });
 }
 
+function sortClassesbyCategory(items) {
+    var categories = env.conf.categories;
+    if (categories) {
+        categories = categories.split(',');
+    } else {
+        categories = [];
+    }
+    var otherCates = [],
+        visited = {};
+    for (var i = 0; i < categories.length; i++) {
+        visited[categories] = 1;
+    }
+    for (var i = 0; i < items.length; i++) {
+        var c = getCustomTagValue(items[i], 'category');
+        if (c && !visited[c]) {
+            visited[c] = 1;
+            otherCates.push(c);
+        }
+    }
+    categories = categories.concat(otherCates);
+    var sorted = [],
+    uncated = [];
+    for (var i = 0; i < categories.length; i++) {
+        var cate = categories[i];
+        for (var ii = 0; ii < items.length; ii++) {
+            var c = getCustomTagValue(items[ii], 'category');
+            if (c && c === cate) {
+                sorted.push(items[ii]);
+            } else {
+                uncated.push(items[ii]);
+            }
+        }
+    }
+    return sorted.concat(uncated);
+}
+
+function getCustomTagValue(item, title) {
+    var tags = item.tags;
+    if (!tags || !tags.length) {
+        return null;
+    }
+    for (var i = tags.length - 1; i >= 0; i--) {
+        if (tags[i].title === title) {
+            return tags[i].value;
+        }
+    }
+    return null;
+}
+
 function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
     var nav = '';
-
+    var isClass = (itemHeading === 'Classes');
     if (items.length) {
+        var exportCategories = {};
         var itemsNav = '';
-
+        if (isClass) {
+            items = sortClassesbyCategory(items);
+        }
         items.forEach(function(item) {
+            if (isClass) {
+                var category = getCustomTagValue(item, 'category');
+                if (category && !exportCategories[category]) {
+                    itemsNav += '</ul><h4>' + category.substring(0,1).toUpperCase()+category.substring(1) + '</h4><ul>';
+                    exportCategories[category] = 1;
+                } else if (category == null && !exportCategories['undefined']) {
+                    itemsNav += '</ul><h4>Other</h4><ul>';
+                    exportCategories['undefined'] = 1;
+                }
+            }
+
             if ( !hasOwnProp.call(item, 'longname') ) {
                 itemsNav += '<li>' + linktoFn('', item.name) + '</li>';
             }
@@ -305,8 +368,8 @@ function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
                 } else {
                     displayName = item.name;
                 }
-                itemsNav += '<li><a href="'+item.longname+'.html">'+displayName.replace(/\b(module|event):/g, '')+'</a></li>';
-                // itemsNav += '<li>' + linktoFn(item.longname, displayName.replace(/\b(module|event):/g, '')) + '</li>';
+                // itemsNav += '<li><a href="'+item.longname+'.html">'+displayName.replace(/\b(module|event):/g, '')+'</a></li>';
+                itemsNav += '<li>' + linktoFn(item.longname, displayName.replace(/\b(module|event):/g, '')) + '</li>';
 
                 itemsSeen[item.longname] = true;
             }
@@ -354,7 +417,7 @@ function buildNav(members) {
     nav += buildMemberNav(members.modules, 'Modules', {}, linkto);
     nav += buildMemberNav(members.externals, 'Externals', seen, linktoExternal);
     nav += buildMemberNav(members.classes, 'Classes', seen, linkto);
-    nav += buildMemberNav(members.events, 'Events', seen, linkto);
+    // nav += buildMemberNav(members.events, 'Events', seen, linkto);
     nav += buildMemberNav(members.namespaces, 'Namespaces', seen, linkto);
     nav += buildMemberNav(members.mixins, 'Mixins', seen, linkto);
     nav += buildMemberNav(members.tutorials, 'Tutorials', seenTutorials, linktoTutorial);
@@ -422,7 +485,6 @@ exports.publish = function(taffyData, opts, tutorials) {
     var sourceFilePaths = [];
     data().each(function(doclet) {
          doclet.attribs = '';
-
         if (doclet.examples) {
             doclet.examples = doclet.examples.map(function(example) {
                 var caption, code;
@@ -608,7 +670,7 @@ exports.publish = function(taffyData, opts, tutorials) {
         var myClasses = helper.find(classes, {longname: longname});
         if (myClasses.length) {
 
-            generate('Class: ' + myClasses[0].name, myClasses, longname+'.html');
+            generate('Class: ' + myClasses[0].name, myClasses, helper.longnameToUrl[longname]);
         }
 
         var myNamespaces = helper.find(namespaces, {longname: longname});

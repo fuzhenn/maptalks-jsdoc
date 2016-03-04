@@ -44,17 +44,37 @@
     <?js
         var methods = self.find({kind: 'function', memberof: isGlobalPage ? {isUndefined: true} : doc.longname});
         if (methods && methods.length && methods.forEach) {
+            var hasStatic = false;
     ?>
-        <h5>Methods</h5>
-        <ul>
+
         <?js methods.forEach(function(m) { ?>
-            <?js //if (m.name ==='config') {console.log(m);} ?>
+            <?js if (m.scope !== 'static') {return;} ?>
+            <?js if (!hasStatic) {
+                hasStatic = true;
+            ?>
+            <h5>Static Methods</h5>
+            <ul>
+            <?js } ?>
             <?js if (m.inherited) {?>
                 <li><a class="inherit" href="#<?js= m.id ?>">
             <?js } else { ?>
                 <li><a href="#<?js= m.id ?>">
             <?js }; ?>
-                <?js= m.name + ' ' + (m.scope === 'static'?'(s)':'') + (m.inherited?'(i)':'') ?></a></li>
+                <?js= m.name /*+ ' ' + (m.inherited?'(i)':'')*/ ?></a></li>
+        <?js }); ?>
+        <?js if (hasStatic) { ?>
+            </ul>
+        <?js } ?>
+        <h5>Methods</h5>
+        <ul>
+        <?js methods.forEach(function(m) {
+                 if (m.scope === 'static') {return;} ?>
+            <?js if (m.inherited) {?>
+                <li><a class="inherit" href="#<?js= m.id ?>">
+            <?js } else { ?>
+                <li><a href="#<?js= m.id ?>">
+            <?js }; ?>
+                <?js= m.name ?></a></li>
         <?js }); ?>
         </ul>
     <?js } ?>
@@ -147,7 +167,7 @@
         <h3 class="subsection-title">Classes</h3>
 
         <dl><?js classes.forEach(function(c) { ?>
-            <dt><a href="<?js= c.longname ?>.html"><?js= c.name ?></a></dt>
+            <dt><?js= self.linkto(c.longname, c.name) ?></dt>
             <dd><?js if (c.summary) { ?><?js= c.summary ?><?js } ?></dd>
         <?js }); ?></dl>
     <?js } ?>
@@ -190,9 +210,17 @@
     <?js
         if (methods && methods.length && methods.forEach) {
     ?>
+        <h3 class="subsection-title">Static Methods</h3>
+        <?js methods.forEach(function(m) {
+                if (m.scope !== 'static') {return;}
+        ?>
+            <?js= self.partial('method.tmpl', m) ?>
+        <?js }); ?>
         <h3 class="subsection-title">Methods</h3>
 
-        <?js methods.forEach(function(m) { ?>
+        <?js methods.forEach(function(m) {
+            if (m.scope === 'static') {return;}
+        ?>
             <?js= self.partial('method.tmpl', m) ?>
         <?js }); ?>
     <?js } ?>

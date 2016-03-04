@@ -21,6 +21,34 @@
     color : #4D4E53;
 }
 
+h3 {
+  font-size: 24px!important;
+  margin-bottom: 8px!important;
+}
+
+nav h3 {
+    font-size: 24px;
+    margin: 0px;
+    margin-bottom: 8px;
+}
+
+nav h4 {
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+nav ul li {
+    margin: 0px;
+    margin-top: 2px;
+}
+
+nav ul li a {
+    color: #3887BE;
+}
+
+
 .scroll-styled::-webkit-scrollbar {
   width:8px;
   height:8px;
