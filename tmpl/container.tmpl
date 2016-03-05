@@ -95,8 +95,8 @@
 </nav>
 <?js } ?>
 <?js if (doc.kind === 'class' || doc.kind === 'mixin') { ?>
-<section style="width:70%;float:right;">
-<?js } else { ?>
+<section class="classmain">
+    <?js } else { ?>
 <section>
 <?js } ?>
 
@@ -211,18 +211,26 @@
 
     <?js
         if (methods && methods.length && methods.forEach) {
+        var hasStatic = false;
+        var hasMethod = false;
     ?>
-        <h3 class="subsection-title">Static Methods</h3>
         <?js methods.forEach(function(m) {
                 if (m.scope !== 'static') {return;}
-        ?>
+                if (!hasStatic) {
+                    hasStatic = true;
+                ?>
+                    <h3 class="subsection-title">Static Methods</h3>
+                <?js } ?>
             <?js= self.partial('method.tmpl', m) ?>
         <?js }); ?>
-        <h3 class="subsection-title">Methods</h3>
 
         <?js methods.forEach(function(m) {
             if (m.scope === 'static') {return;}
-        ?>
+             if (!hasMethod) {
+                    hasMethod = true;
+                ?>
+                    <h3 class="subsection-title">Methods</h3>
+                <?js } ?>
             <?js= self.partial('method.tmpl', m) ?>
         <?js }); ?>
     <?js } ?>

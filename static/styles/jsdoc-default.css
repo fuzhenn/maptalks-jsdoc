@@ -71,7 +71,7 @@ tt, code, kbd, samp {
 
 #main {
     float: left;
-    width: 82%;
+    width: 85%;
 }
 
 article dl {
@@ -239,7 +239,7 @@ h6
 .prettyprint
 {
     border: 1px solid #ddd;
-    width: 80%;
+    /*width: 80%;*/
     overflow: auto;
 }
 
