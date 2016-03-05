@@ -2,6 +2,7 @@
 var data = obj;
 var self = this;
 var defaultObjectClass = '';
+var github = self.github;
 
 // Check if the default value is an object or array; if so, apply code highlighting
 if (data.defaultvalue && (data.defaultvaluetype === 'object' || data.defaultvaluetype === 'array')) {
@@ -110,7 +111,12 @@ if (data.defaultvalue && (data.defaultvaluetype === 'object' || data.defaultvalu
     <?js if (data.meta && self.outputSourceFiles) {?>
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <?js= self.linkto(meta.shortpath) ?>, <?js= self.linkto(meta.shortpath, 'line ' + meta.lineno, null, 'line' + meta.lineno) ?>
+        <?js if (github) { ?>
+            <?js= self.linkto(github+meta.shortpath, meta.shortpath).replace(' href',' target="_blank" href') ?>, <?js= self.linkto(github+meta.shortpath, 'line ' + meta.lineno, null, 'L' + meta.lineno).replace(' href',' target="_blank" href') ?>
+        <?js } else { ?>
+            <?js= self.linkto(meta.shortpath) ?>, <?js= self.linkto(meta.shortpath, 'line ' + meta.lineno, null, 'line' + meta.lineno) ?>
+        <?js } ?>
+
     </li></ul></dd>
     <?js } ?>
 

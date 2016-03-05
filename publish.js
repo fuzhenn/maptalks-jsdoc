@@ -289,7 +289,13 @@ function attachModuleSymbols(doclets, modules) {
 }
 
 function sortClassesbyCategory(items) {
-    var categories = env.conf.categories;
+    function trim(str) {
+        if (!str) {
+            return null;
+        }
+        return str.replace(/(^\s*)|(\s*$)/g,'');
+    }
+    var categories = env.conf.templates.categories;
     if (categories) {
         categories = categories.split(',');
     } else {
@@ -298,10 +304,11 @@ function sortClassesbyCategory(items) {
     var otherCates = [],
         visited = {};
     for (var i = 0; i < categories.length; i++) {
-        visited[categories] = 1;
+        categories[i] = trim(categories[i]);
+        visited[categories[i]] = 1;
     }
     for (var i = 0; i < items.length; i++) {
-        var c = getCustomTagValue(items[i], 'category');
+        var c = trim(getCustomTagValue(items[i], 'category'));
         if (c && !visited[c]) {
             visited[c] = 1;
             otherCates.push(c);
@@ -313,7 +320,7 @@ function sortClassesbyCategory(items) {
     for (var i = 0; i < categories.length; i++) {
         var cate = categories[i];
         for (var ii = 0; ii < items.length; ii++) {
-            var c = getCustomTagValue(items[ii], 'category');
+            var c = trim(getCustomTagValue(items[ii], 'category'));
             if (c && c === cate) {
                 sorted.push(items[ii]);
             } else {
@@ -452,7 +459,6 @@ function buildNav(members) {
  */
 exports.publish = function(taffyData, opts, tutorials) {
     data = taffyData;
-
     var conf = env.conf.templates || {};
     conf.default = conf.default || {};
 
@@ -615,7 +621,6 @@ exports.publish = function(taffyData, opts, tutorials) {
             doclet.kind = 'member';
         }
     });
-
     var members = helper.getMembers(data);
     members.tutorials = tutorials.children;
 
@@ -638,7 +643,12 @@ exports.publish = function(taffyData, opts, tutorials) {
 
     // generate the pretty-printed source files first so other pages can link to them
     if (outputSourceFiles) {
-        generateSourceFiles(sourceFiles, opts.encoding);
+        var github = conf.github;
+        if (github) {
+            view.github = github;
+        } else {
+            generateSourceFiles(sourceFiles, opts.encoding);
+        }
     }
 
     if (members.globals.length) { generate('Global', [{kind: 'globalobj'}], globalUrl); }
