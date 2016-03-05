@@ -15,7 +15,7 @@ var self = this;
     <h4 class="name" id="<?js= id ?>"><?js= data.attribs + (data.inherited?'<span class="type-signature">(inherited) </span>':'') + (kind === 'class' ? 'new ' : '') +
     methodName + (data.signature || '') ?>
     <?js if (self.github) { ?>
-        <?js= self.linkto(self.github+data.meta.shortpath, '[edit]', null, 'L' + data.meta.lineno).replace(' href',' target="_blank" href') ?>
+        <?js= self.linkto(self.github+data.meta.shortpath, '[help to improve]', 'improvelink', 'L' + data.meta.lineno).replace('/blob/','/edit/').replace(' href',' target="_blank" href') ?>
     <?js } ?>
     </h4>
 

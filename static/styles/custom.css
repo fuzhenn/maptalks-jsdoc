@@ -57,6 +57,9 @@ nav ul li a {
     color: #3887BE;
 }
 
+.improvelink {
+  font-size:13px;
+}
 
 .scroll-styled::-webkit-scrollbar {
   width:8px;
