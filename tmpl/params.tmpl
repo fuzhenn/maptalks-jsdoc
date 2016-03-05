@@ -59,10 +59,6 @@
 
         <th>Type</th>
 
-        <?js if (params.hasAttributes) {?>
-        <th>Attributes</th>
-        <?js } ?>
-
         <?js if (params.hasDefault) {?>
         <th>Default</th>
         <?js } ?>
@@ -80,7 +76,19 @@
 
         <tr>
             <?js if (params.hasName) {?>
-                <td class="name"><code><?js= param.name ?></code></td>
+                <td class="name"><code><?js= param.name ?></code>
+                <?js if (params.hasAttributes) {?>
+                    <?js if (param.optional) { ?>
+                        <span class="signature-attributes">opt</span>
+                    <?js } ?>
+                    <?js if (param.nullable) { ?>
+                        <span class="signature-attributes">nullable</span>
+                    <?js } ?>
+                    <?js if (param.variable) { ?>
+                        <span class="signature-attributes">repeatable</span>
+                    <?js } ?>
+                <?js } ?>
+                </td>
             <?js } ?>
 
             <td class="type">
@@ -88,22 +96,6 @@
                 <?js= self.partial('type.tmpl', param.type.names) ?>
             <?js } ?>
             </td>
-
-            <?js if (params.hasAttributes) {?>
-                <td class="attributes">
-                <?js if (param.optional) { ?>
-                    &lt;optional><br>
-                <?js } ?>
-
-                <?js if (param.nullable) { ?>
-                    &lt;nullable><br>
-                <?js } ?>
-
-                <?js if (param.variable) { ?>
-                    &lt;repeatable><br>
-                <?js } ?>
-                </td>
-            <?js } ?>
 
             <?js if (params.hasDefault) {?>
                 <td class="default">

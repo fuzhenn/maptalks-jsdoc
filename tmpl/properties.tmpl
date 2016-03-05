@@ -48,9 +48,7 @@
 
         <th>Type</th>
 
-        <?js if (props.hasAttributes) {?>
-        <th>Attributes</th>
-        <?js } ?>
+
 
         <?js if (props.hasDefault) {?>
         <th>Default</th>
@@ -69,7 +67,17 @@
 
         <tr>
             <?js if (props.hasName) {?>
-                <td class="name"><code><?js= prop.name ?></code></td>
+                <td class="name"><code><?js= prop.name ?></code>
+                    <?js if (props.hasAttributes) {?>
+                        <?js if (prop.optional) { ?>
+                           <span class="signature-attributes">opt</span>
+                        <?js } ?>
+                        <?js if (prop.nullable) { ?>
+                            <span class="signature-attributes">nullable</span>
+                        <?js } ?>
+
+                    <?js } ?>
+                </td>
             <?js } ?>
 
             <td class="type">
@@ -78,17 +86,7 @@
             <?js } ?>
             </td>
 
-            <?js if (props.hasAttributes) {?>
-                <td class="attributes">
-                <?js if (prop.optional) { ?>
-                    &lt;optional><br>
-                <?js } ?>
 
-                <?js if (prop.nullable) { ?>
-                    &lt;nullable><br>
-                <?js } ?>
-                </td>
-            <?js } ?>
 
             <?js if (props.hasDefault) {?>
                 <td class="default">
