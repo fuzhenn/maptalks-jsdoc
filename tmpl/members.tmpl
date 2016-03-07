@@ -2,12 +2,13 @@
 var data = obj;
 var self = this;
 ?>
+<li>
 <h4 class="name" id="<?js= id ?>"><?js= data.attribs + name + (data.signature ? data.signature : '') ?>
 <?js if (self.github) { ?>
         <?js= self.linkto(self.github+data.meta.shortpath, '[help to improve]', 'improvelink', 'L' + data.meta.lineno).replace('/blob/','/edit/').replace(' href',' target="_blank" href') ?>
     <?js } ?>
     <a href="#<?js= id ?>" class="improvelink">[link]</a></h4>
-
+</li>
 <?js if (data.summary) { ?>
 <p class="summary"><?js= summary ?></p>
 <?js } ?>

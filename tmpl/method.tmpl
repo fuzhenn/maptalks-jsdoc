@@ -5,13 +5,18 @@ var self = this;
 <?js
     if (data.kind !== 'module') {
         var methodName = name;
+        var isConstructor = false;
         if (data.kind === 'class') {methodName = longname;}
 ?>
 
-    <?js if (data.kind === 'class' && data.classdesc) { ?>
+    <?js if (data.kind === 'class' && data.classdesc) {
+        isConstructor = true;
+    ?>
     <!-- <h2>Constructor</h2> -->
     <?js } ?>
-
+    <?js if (!isConstructor) { ?>
+    <li>
+    <?js } ?>
     <h4 class="name" id="<?js= id ?>"><?js= data.attribs + (data.inherited?'<span class="type-signature">(inherited) </span>':'') + (kind === 'class' ? 'new ' : '') +
     methodName + (data.signature || '') ?>
     <?js if (self.github) { ?>
@@ -20,6 +25,9 @@ var self = this;
     <a href="#<?js= id ?>" class="improvelink">[link]</a>
     </h4>
 
+    <?js if (!isConstructor) { ?>
+    </li>
+    <?js } ?>
     <?js if (data.summary) { ?>
         <p class="summary"><?js= summary ?></p>
     <?js } ?>
