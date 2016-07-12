@@ -1,28 +1,34 @@
 <?js
 var data = obj;
 var self = this;
+
 ?>
 <?js
     if (data.kind !== 'module') {
         var methodName = name;
         var isConstructor = false;
         if (data.kind === 'class') {methodName = longname;}
+        if (data.kind === 'class' && data.classdesc) {
+            isConstructor = true;
+        }
 ?>
-
-    <?js if (data.kind === 'class' && data.classdesc) {
-        isConstructor = true;
-    ?>
     <!-- <h2>Constructor</h2> -->
-    <?js } ?>
     <?js if (!isConstructor) { ?>
     <li>
     <?js } ?>
     <h4 class="name" id="<?js= id ?>"><?js= data.attribs + (data.inherited?'<span class="type-signature">(inherited) </span>':'') + (kind === 'class' ? 'new ' : '') +
-    methodName + (data.signature || '') ?>
-    <?js if (self.github) { ?>
-        <?js= self.linkto(self.github+data.meta.shortpath, '[help to improve]', 'improvelink', 'L' + data.meta.lineno).replace('/blob/','/edit/').replace(' href',' target="_blank" href') ?>
+    '<a href="#' + id + '">' + methodName + '</a>' + (data.signature || '') ?>
+    <?js if (data.meta && self.outputSourceFiles) {?>
+        <?js if (self.github) { ?>
+            <?js= self.linkto(self.github+meta.shortpath, '[source]', 'improvelink', 'L' + meta.lineno).replace(' href',' target="_blank" href') ?>
+        <?js } else { ?>
+            <?js= self.linkto(meta.shortpath, [source], 'improvelink', 'line' + meta.lineno) ?>
+        <?js } ?>
     <?js } ?>
-    <a href="#<?js= id ?>" class="improvelink">[link]</a>
+    <!-- <?js if (self.github) { ?>
+        <?js= self.linkto(self.github+data.meta.shortpath, '[help to improve]', 'improvelink', 'L' + data.meta.lineno).replace('/blob/','/edit/').replace(' href',' target="_blank" href') ?>
+    <?js } ?> -->
+    <!-- <a href="#<?js= id ?>" class="improvelink">[link]</a> -->
     </h4>
 
     <?js if (!isConstructor) { ?>
@@ -48,14 +54,14 @@ var self = this;
     <?js= self.partial('augments.tmpl', data) ?>
 <?js } ?>
 
-<?js if (kind === 'event' && data.type && data.type.names) {?>
+<!-- <?js if (data.kind === 'event' && data.type && data.type.names) {?>
     <h5>Type:</h5>
     <ul>
         <li>
             <?js= self.partial('type.tmpl', data.type.names) ?>
         </li>
     </ul>
-<?js } ?>
+<?js } ?> -->
 
 <?js if (data['this']) { ?>
     <h5>This:</h5>
@@ -63,11 +69,16 @@ var self = this;
 <?js } ?>
 
 <?js if (data.params && params.length) { ?>
-    <h5>Parameters:</h5>
     <?js= this.partial('params.tmpl', params) ?>
 <?js } ?>
 
-<?js= this.partial('details.tmpl', data) ?>
+<!-- event properties -->
+
+<?js if (data.properties && properties.length) { ?>
+    <?js= this.partial('event-properties.tmpl', properties) ?>
+<?js } ?>
+
+<!-- <?js= this.partial('details.tmpl', data) ?> -->
 
 <?js if (data.kind !== 'module' && data.requires && data.requires.length) { ?>
 <h5>Requires:</h5>
@@ -111,6 +122,7 @@ var self = this;
 
 <?js if (data.returns && returns.length) { ?>
 <h5>Returns:</h5>
+<?js= (data.returnTypes + ':' || '') ?>
 <?js if (returns.length > 1) { ?><ul><?js
     returns.forEach(function(r) { ?>
         <li><?js= self.partial('returns.tmpl', r) ?></li>

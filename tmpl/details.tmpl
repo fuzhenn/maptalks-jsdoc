@@ -20,7 +20,7 @@ if (data.defaultvalue && (data.defaultvaluetype === 'object' || data.defaultvalu
     <?js= this.partial('properties.tmpl', data) ?>
 
 <?js } ?>
-
+<?js if (false) { ?>
 <dl class="details">
 
     <?js if (data.version) {?>
@@ -147,3 +147,4 @@ if (data.defaultvalue && (data.defaultvaluetype === 'object' || data.defaultvalu
     </dd>
     <?js } ?>
 </dl>
+<?js } ?>

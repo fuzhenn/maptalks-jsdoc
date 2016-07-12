@@ -31,8 +31,13 @@
 }
 
 h3 {
+  color : #aaa;
   font-size: 24px!important;
   margin-bottom: 8px!important;
+}
+
+h5 {
+  color : #aaa;
 }
 
 nav h3 {
@@ -42,6 +47,7 @@ nav h3 {
 }
 
 nav h4 {
+    color : #aaa;
     font-size: 18px;
     font-weight: 500;
     margin-top: 8px;
@@ -49,6 +55,7 @@ nav h4 {
 }
 
 nav ul li {
+    font-size:12px;
     margin: 0px;
     margin-top: 2px;
 }
@@ -58,6 +65,7 @@ nav ul li a {
 }
 
 .improvelink {
+  float:right;
   font-size:13px;
 }
 

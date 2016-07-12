@@ -27,7 +27,7 @@
 html
 {
     overflow: auto;
-    background-color: #FFFEEE; /*#fff;*/
+    background-color: #fff; /*#fff;*/
     font-size: 14px;
 }
 
@@ -36,11 +36,11 @@ body
     font-family: 'microsoft yahei','Open Sans', sans-serif;
     /*line-height: 1.5;*/
     color: #4d4e53;
-    background-color: #FFFEEE; /*white;*/
+    background-color: #fff; /*white;*/
 }
 
 a, a:visited, a:active {
-    color: #0095dd;
+    color: #416381;
     text-decoration: none;
 }
 
@@ -81,7 +81,7 @@ article dl {
 section
 {
     display: block;
-    background-color: #FFFEEE; /*#fff;*/
+    background-color: #fff; /*#fff;*/
     padding: 12px 24px;
     border-bottom: 1px solid #ccc;
     margin-right: 30px;
@@ -164,6 +164,7 @@ h2, h3
 h4
 {
     font-size: 18px;
+    font-weight:bold;
     letter-spacing: -0.33px;
     margin-bottom: 12px;
     color: #4d4e53;
@@ -171,7 +172,7 @@ h4
 
 h5, .container-overview .subsection-title
 {
-    font-size: 120%;
+    font-size: 14px;
     font-weight: bold;
     letter-spacing: -0.01em;
     margin: 8px 0 3px 0;
@@ -209,6 +210,7 @@ h6
 
 .type-signature {
     color: #aaa;
+    line-height:2.6;
 }
 
 .name, .signature {
@@ -321,13 +323,12 @@ h6
 
 .params thead tr, .props thead tr
 {
-    background-color: #cee4f0;
-    font-weight: bold;
+    background-color: rgba(230, 235, 237, 0.5);/*#cee4f0;*/
 }
 
 .params .params thead tr, .props .props thead tr
 {
-    background-color: #FFFEEE; /*#fff;*/
+    background-color: rgba(230, 235, 237, 0.5); /*#fff;*/
     font-weight: bold;
 }
 

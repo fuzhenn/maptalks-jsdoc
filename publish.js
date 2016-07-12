@@ -165,11 +165,11 @@ function addSignatureReturns(f) {
         returnTypes = addNonParamAttributes(f.returns);
     }
     if (returnTypes.length) {
-        returnTypesString = util.format( ' &rarr; %s{%s}', attribsString, returnTypes.join('|') );
+        returnTypesString = util.format( '%s%s', attribsString, returnTypes.join('|') );
     }
 
-    f.signature = '<span class="signature">' + (f.signature || '') + '</span>' +
-        '<span class="type-signature">' + returnTypesString + '</span>';
+    f.signature = '<span class="signature">' + (f.signature || '') + '</span>';
+    f.returnTypes = '<span class="type-signature">' + returnTypesString + '</span>';
 }
 
 function addSignatureTypes(f) {
@@ -357,10 +357,10 @@ function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
             if (isClass) {
                 var category = getCustomTagValue(item, 'category');
                 if (category && !exportCategories[category]) {
-                    itemsNav += '</ul><h4>' + category.substring(0,1).toUpperCase()+category.substring(1) + '</h4><ul>';
+                    itemsNav += '</ul><h5>' + category.substring(0,1).toUpperCase()+category.substring(1) + '</h5><ul>';
                     exportCategories[category] = 1;
                 } else if (category == null && !exportCategories['undefined']) {
-                    itemsNav += '</ul><h4>Other</h4><ul>';
+                    itemsNav += '</ul><h5>Other</h5><ul>';
                     exportCategories['undefined'] = 1;
                 }
             }
@@ -383,7 +383,7 @@ function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
         });
 
         if (itemsNav !== '') {
-            nav += '<h3>' + itemHeading + '</h3><ul>' + itemsNav + '</ul>';
+            nav += '<h4>' + itemHeading + '</h4><ul>' + itemsNav + '</ul>';
         }
     }
 

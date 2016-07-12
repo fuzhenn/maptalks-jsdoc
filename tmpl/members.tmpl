@@ -4,10 +4,17 @@ var self = this;
 ?>
 <li>
 <h4 class="name" id="<?js= id ?>"><?js= data.attribs + name + (data.signature ? data.signature : '') ?>
-<?js if (self.github) { ?>
+<?js if (data.meta && self.outputdFiles) {?>
+    <?js if (self.github) { ?>
+        <?js= self.linkto(self.github+meta.shortpath, '[source]', 'improvelink', 'L' + meta.lineno).replace(' href',' target="_blank" href') ?>
+    <?js } else { ?>
+        <?js= self.linkto(meta.shortpath, [source], 'improvelink', 'line' + meta.lineno) ?>
+    <?js } ?>
+<?js } ?>
+<!-- <?js if (self.github) { ?>
         <?js= self.linkto(self.github+data.meta.shortpath, '[help to improve]', 'improvelink', 'L' + data.meta.lineno).replace('/blob/','/edit/').replace(' href',' target="_blank" href') ?>
     <?js } ?>
-    <a href="#<?js= id ?>" class="improvelink">[link]</a></h4>
+    <a href="#<?js= id ?>" class="improvelink">[link]</a></h4> -->
 </li>
 <?js if (data.summary) { ?>
 <p class="summary"><?js= summary ?></p>
