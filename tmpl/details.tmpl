@@ -10,6 +10,15 @@ if (data.defaultvalue && (data.defaultvaluetype === 'object' || data.defaultvalu
     defaultObjectClass = ' class="object-value"';
 }
 ?>
+
+<?js if (data.inherited && data.inherits && !data.overrides) { ?>
+    <h5>Inherited From:</h5>
+    <ul><li>
+        <?js= this.linkto(data.inherits, this.htmlsafe(data.inherits)) ?>
+    </li></ul>
+    <?js } ?>
+
+
 <?js
     var properties = data.properties;
     if (properties && properties.length && properties.forEach) {
@@ -19,8 +28,7 @@ if (data.defaultvalue && (data.defaultvaluetype === 'object' || data.defaultvalu
 
     <?js= this.partial('properties.tmpl', data) ?>
 
-<?js } ?>
-<?js if (false) { ?>
+
 <dl class="details">
 
     <?js if (data.version) {?>
