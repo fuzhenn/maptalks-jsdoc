@@ -670,7 +670,6 @@ exports.publish = function(taffyData, opts, tutorials) {
     var mixins = taffy(members.mixins);
     var externals = taffy(members.externals);
     var interfaces = taffy(members.interfaces);
-
     Object.keys(helper.longnameToUrl).forEach(function(longname) {
         var myModules = helper.find(modules, {longname: longname});
         if (myModules.length) {
@@ -679,7 +678,7 @@ exports.publish = function(taffyData, opts, tutorials) {
 
         var myClasses = helper.find(classes, {longname: longname});
         if (myClasses.length) {
-
+            mergeClassOptions(classes, myClasses);
             generate('Class: ' + myClasses[0].name, myClasses, helper.longnameToUrl[longname]);
         }
 
@@ -728,6 +727,51 @@ exports.publish = function(taffyData, opts, tutorials) {
             generateTutorial('Tutorial: ' + child.title, child, helper.tutorialToUrl(child.name));
             saveChildren(child);
         });
+    }
+
+    /**
+     * merge class's options with its parent classes recursively
+     */
+    function mergeClassOptions(classes, clazz) {
+        if (!clazz || !clazz.length) {
+            return;
+        }
+        clazz = clazz[0];
+        var merged = [];
+        var propChecked = {};
+        var clazzChecking = clazz;
+        while (clazzChecking) {
+            //find class's options
+            var filtered = find({kind: 'member', memberof: clazzChecking.longname, name : 'options'});
+            if (filtered) {
+                var properties = filtered.length ? filtered[0].properties : null;
+                if (properties) {
+                    properties.forEach(function (prop) {
+                        //append 'options.' at the head of the property name
+                        if (prop.name.indexOf('options') < 0) {
+                            prop.name = 'options.' + prop.name;
+                        }
+                        if (!propChecked[prop.name]) {
+                            merged.push(prop);
+                            propChecked[prop.name] = 1;
+                        }
+                    });
+                }
+            }
+            //find class's parent class
+            var parents = clazzChecking.augments ? helper.find(classes, {longname: clazzChecking.augments[0]}) : null;
+            if (!parents || !parents.length) {
+                break;
+            }
+            clazzChecking = parents[0];
+        }
+
+        var toMerge = find({kind: 'member', memberof: clazz.longname, name : 'options'});
+        if (toMerge.length) {
+            toMerge[0].properties = merged;
+        }
+
+
     }
     saveChildren(tutorials);
 };
