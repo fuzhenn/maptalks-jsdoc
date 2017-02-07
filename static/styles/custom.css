@@ -30,6 +30,10 @@
     color : #aaa;
 }
 
+.classnav ul li a.mixed {
+    color : #bbb;
+}
+
 h3 {
   color : #aaa;
   font-size: 24px!important;
@@ -38,6 +42,7 @@ h3 {
 
 h5 {
   color : #aaa;
+  font-size : 18px;
 }
 
 nav h3 {

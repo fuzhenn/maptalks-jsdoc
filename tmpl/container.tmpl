@@ -59,6 +59,8 @@
             <?js } ?>
             <?js if (m.inherited) {?>
                 <li><a class="inherit" href="#<?js= m.id ?>">
+            <?js } else if (m.mixed) { ?>
+                <li><a class="mixed" href="#<?js= m.id ?>">
             <?js } else { ?>
                 <li><a href="#<?js= m.id ?>">
             <?js }; ?>
@@ -73,6 +75,8 @@
                  if (m.scope === 'static') {return;} ?>
             <?js if (m.inherited) {?>
                 <li><a class="inherit" href="#<?js= m.id ?>">
+            <?js } else if (m.mixed) { ?>
+                <li><a class="mixed" href="#<?js= m.id ?>">
             <?js } else { ?>
                 <li><a href="#<?js= m.id ?>">
             <?js }; ?>

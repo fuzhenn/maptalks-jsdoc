@@ -5,7 +5,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/FuZhenn/maptalks-jsdoc.git"
+    "url": "https://github.com/fuzhenn/maptalks-jsdoc.git"
   },
   "devDependencies": {
   },
@@ -18,6 +18,6 @@
   ],
   "readmeFilename": "README.md",
   "bugs": {
-    "url": "https://github.com/FuZhenn/maptalks-jsdoc/issues"
+    "url": "https://github.com/fuzhenn/maptalks-jsdoc/issues"
   }
 }

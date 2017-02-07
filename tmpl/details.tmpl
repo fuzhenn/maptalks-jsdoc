@@ -10,9 +10,24 @@ if (data.defaultvalue && (data.defaultvaluetype === 'object' || data.defaultvalu
     defaultObjectClass = ' class="object-value"';
 }
 ?>
+<?js if (data.mixes) { ?>
+    <h5>Mixes From:</h5>
+    <ul><li>
+        <?js 
+            if (Array.isArray(data.mixes)) {
+                for (var i in data.mixes) {
+                    var mix = data.mixes[i];
+        ?>
+            <?js= this.linkto(mix + '', this.htmlsafe(mix + '')) ?>
+            <?js } ?>
+        <?js } else {?>
+            <?js= this.linkto(data.mixes + '', this.htmlsafe(data.mixes + '')) ?>
+        <?js } ?>
+    </li></ul>
+<?js } ?>
 
 <?js if (data.inherited && data.inherits && !data.overrides) { ?>
-    <h5>Inherited From:</h5>
+    <h5>Inherited From:</h5>    
     <ul><li>
         <?js= this.linkto(data.inherits, this.htmlsafe(data.inherits)) ?>
     </li></ul>
@@ -71,7 +86,7 @@ if (data.defaultvalue && (data.defaultvaluetype === 'object' || data.defaultvalu
             <li><?js= self.linkto(impl, self.htmlsafe(impl)) ?></li>
         <?js }); ?>
     </ul></dd>
-    <?js } ?>
+    <?js } ?>    
 
     <?js if (data.mixes && data.mixes.length) { ?>
         <dt class="mixes">Mixes In:</dt>
