@@ -417,7 +417,10 @@ function buildClassNav() {
  * @return {string} The HTML for the navigation sidebar.
  */
 function buildNav(members) {
-    var nav = '<h2><a href="index.html">Home</a></h2>';
+    var packageInfo = ( find({kind: 'package'}) || [] ) [0];
+    var version = packageInfo.version;
+    
+    var nav = '<h2><a href="index.html">V' + version + '</a></h2>';
     var seen = {};
     var seenTutorials = {};
 
@@ -529,7 +532,7 @@ exports.publish = function(taffyData, opts, tutorials) {
     // update outdir if necessary, then create outdir
     var packageInfo = ( find({kind: 'package'}) || [] ) [0];
     if (packageInfo && packageInfo.name) {
-        outdir = path.join( outdir, packageInfo.name, (packageInfo.version || '') );
+        outdir = path.join( outdir, packageInfo.version[0] + '.x' );
     }
     fs.mkPath(outdir);
 
