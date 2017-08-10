@@ -1,14 +1,13 @@
 {
   "name": "maptalks-jsdoc",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A template of JSDoc 3 for maptalks.js, based on the default temaplate but more.",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/fuzhenn/maptalks-jsdoc.git"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "dependencies": {},
   "keywords": [
     "jsdoc",
