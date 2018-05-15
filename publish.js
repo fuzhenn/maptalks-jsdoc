@@ -419,7 +419,7 @@ function buildClassNav() {
 function buildNav(members) {
     var packageInfo = ( find({kind: 'package'}) || [] ) [0];
     var version = packageInfo.version;
-    
+
     var nav = '<h2><a href="index.html">V' + version + '</a></h2>';
     var seen = {};
     var seenTutorials = {};
@@ -542,7 +542,7 @@ exports.publish = function(taffyData, opts, tutorials) {
 
     staticFiles.forEach(function(fileName) {
         var outpath = fileName.replace(fromDir, outdir);
-        var toDir = fs.toDir( outpath );
+        var toDir = path.dirname(outpath);
         fs.mkPath(toDir);
         fs.copyFileSync(fileName, outpath);
     });
@@ -567,9 +567,9 @@ exports.publish = function(taffyData, opts, tutorials) {
             extraStaticFiles = staticFileScanner.scan([filePath], 10, staticFileFilter);
 
             extraStaticFiles.forEach(function(fileName) {
-                var sourcePath = fs.toDir(filePath);
+                var sourcePath = path.dirname(filePath);
                 var outpath = fileName.replace(sourcePath, outdir);
-                var toDir = fs.toDir( outpath );
+                var toDir = path.dirname( outpath );
                 fs.mkPath(toDir);
                 fs.copyFileSync(fileName, outpath);
             });
