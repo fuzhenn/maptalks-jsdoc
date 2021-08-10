@@ -1,6 +1,6 @@
 {
   "name": "maptalks-jsdoc",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "A template of JSDoc 3 for maptalks.js, based on the default temaplate but more.",
   "license": "Apache-2.0",
   "repository": {
